@@ -1,35 +1,104 @@
-# Workout Tracker
+# 🏋️ Workout Tracker with Nutritionix + Google Sheets 📊
 
-## Objective
+This Python app uses **Natural Language Processing** to understand your workout descriptions, calculate calories burned, and log everything to a **Google Sheet** automatically. Just type what exercise you did — and it handles the rest!
 
-Build an exercise tracking app using natural language processing and Google sheets.
+---
 
-You **won't** be able to run this solution code as is. Why? You'll need to add **your own** API keys as environment variables first.
+## ✨ Features
 
-## PyCharm Environment Variables
+- 🧠 Uses [Nutritionix API](https://www.nutritionix.com/) to interpret natural language workout descriptions
+- 🔢 Calculates duration, calories burned, and exercise names
+- 📄 Stores all workout logs in a [Google Sheet](https://sheety.co/) using the Sheety API
+- 🔐 Secure API key management via environment variables
+- 💻 Designed for use in PyCharm, Replit, or any IDE with environment support
 
-In PyCharm you set your environment variables under "Edit Configurations". You should see a section called "Environment" -> "Environment Variables". There, you can click a small symbol which brings up a window where you can paste all your environment variables at the same time. The format follows the example of the env_for_pycharm file (use your own API keys)
+---
 
-## Replit Environment Variables
+## 📦 Tech Stack
 
-For Replit you need to click on the padlock symbol (Secrets) in the menu. There you can add your environment variables. You can either add them one by one or paste them from a .json file. The .json provided is just an example. You'll need to replace it with own API keys.
+- Python 3
+- `requests`
+- Nutritionix API
+- Sheety API
+- Google Sheets
 
-## FAQ KeyError
+---
 
-The name of your environment variables in your Python code needs to match what your environment variables are actually called. If you use:
+## 🚀 Getting Started
+
+### 1. Clone the Repo
+```bash
+git clone https://github.com/your-username/workout-tracker.git
+cd workout-tracker
+```
+
+### 2. Install Dependencies
+```bash
+pip install requests
+```
+
+### 3. Setup Environment Variables
+
+Set these variables in your environment (e.g. `.env` file, Replit Secrets, or PyCharm Config):
 
 ```
-API_KEY = os.environ["NT_API_KEY"]
+ENV_NIX_APP_ID=your_nutritionix_app_id
+ENV_NIX_API_KEY=your_nutritionix_api_key
+ENV_SHEETY_ENDPOINT=https://api.sheety.co/your-endpoint/workouts
+ENV_SHEETY_USERNAME=your_username
+ENV_SHEETY_PASSWORD=your_password
 ```
 
-Then make sure your environment variable is actually called `NT_API_KEY`. If you use a different name (like `ENV_NIX_API_KEY`) then make sure your Python code matches.
+You can refer to the included file `env_for_pycharm.txt` for the format.
 
-## FAQ Sheety: Insufficient Permission
+### 4. Run the Script
+```bash
+python main.py
+```
 
-Sheety needs permission to access your Google Sheet. When you sign into Sheety you probably forgot to give it permission. Sign out of Sheety and sign in again. Also, go to your Google Account -> Security -> Third Party Apps with Account Access. Check that you see Sheety listed there.
+Then enter your workout in plain English:
+```
+Tell me which exercises you did: Ran 5km and did 20 push-ups
+```
 
-## FAQ Sheety: Bad Request. The JSON Payload should be inside a root property called "X"
+---
 
-Your Google sheet's name should be plural – if it isn’t then Sheety will still expect it to be camelCase plural in the API endpoint. i.e. if your sheet is named "My Workouts", then you should use "myWorkouts" in your endpoint.
-The Project name in the endpoint must also be camelCase.
-The name you use for the primary key in the API call should be the camelCase singular version of the sheet name. i.e. if your sheet is named "My Workouts", then you should use "myWorkout" in your API dictionary. You may also need to refresh the API page on Sheety.
+## 📝 Sample Output
+
+```
+Nutritionix API call:
+[{'name': 'running', 'duration_min': 30, 'nf_calories': 270}, ...]
+Sheety Response:
+Success! Logged in Google Sheets ✅
+```
+
+Google Sheet Preview:
+| Date       | Time     | Exercise | Duration (min) | Calories |
+|------------|----------|----------|----------------|----------|
+| 19/04/2025 | 08:32:15 | Running  | 30             | 270      |
+
+---
+
+## 🛠 Troubleshooting
+
+### ❗ KeyError
+Check that your environment variable names match what your Python code expects.
+
+### ❗ Sheety "Bad Request"
+Make sure your sheet name is singular in code but camelCase in your Sheety API. Ex: `"workouts"` sheet → use `"workout"` in the JSON.
+
+### ❗ Sheety "Insufficient Permission"
+Ensure you've authorized Sheety properly in your Google Account's security settings.
+
+---
+
+## 🙏 Credits
+
+- [Nutritionix](https://www.nutritionix.com/) for exercise data
+- [Sheety](https://sheety.co/) for easy Google Sheet API access
+
+---
+
+## 🌟 Like this project?
+
+Give it a ⭐ on GitHub — and feel free to contribute!
